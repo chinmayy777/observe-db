@@ -14,8 +14,8 @@ func main(){
 	value, ok := store.Get("name")
 	fmt.Println("name: ", value, ok)
 
-	removed := store.Delete("name")
-	fmt.Println("deleted name: ", removed)
+	deleted := store.Delete("name")
+	fmt.Println("deleted name: ", deleted)
 
 	value, ok = store.Get("name")
 	fmt.Println("name after delete: ", value, ok)

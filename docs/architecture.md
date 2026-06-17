@@ -22,3 +22,26 @@ Provides a way to store and retrieve data through a simple database interface.
 - Clustering
 - Transactions
 - Distributed consensus
+
+## Future API Ideas
+
+Store records using key-value pairs.
+
+Possible operations:
+
+- PUT key/value
+- GET by key
+- DELETE by key
+
+Possible request format:
+
+{
+    "key" : "name"
+    "value" : "Chinmay"
+}
+
+Possible response format:
+
+{
+    "success" : true
+}
