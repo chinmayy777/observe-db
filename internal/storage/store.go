@@ -14,3 +14,15 @@ func (s *Store) Put(key, value string){
 	s.data[key] = value
 }
 
+func (s *Store) Get(key string) (string, bool){
+	value, ok := s.data[key]
+	return value, ok
+}
+
+func (s *Store) Delete(key string) bool{
+	_, ok := s.data[key]
+	if ok{
+		delete(s.data, key)
+	}
+	return ok
+}
