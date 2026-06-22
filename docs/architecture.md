@@ -45,3 +45,29 @@ Possible response format:
 {
     "success" : true
 }
+
+## Why an HTTP Layer Exists
+
+The storage package contains business logic.
+
+External clients cannot call Go functions directly.
+
+The HTTP layer exposes storage functionality through endpoints.
+
+Example:
+
+Client -> HTTP API -> Storage Layer
+
+## Responsibilities of API Layer
+
+- Accept requests
+- Validate input
+- Call storage functions
+- Return responses
+
+## What API Layer Should Not Do
+
+- Store data directly
+- Contain storage logic
+- Manage persistence
+- Replace the storage package
