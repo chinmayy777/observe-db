@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"observedb/internal/api"
+	"observedb/internal/storage"
 )
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
@@ -10,6 +12,9 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	api.StoreInstance = storage.NewStore()
+
 	http.HandleFunc("/health", healthHandler)
 
 	fmt.Println("Server starting on :8080")
