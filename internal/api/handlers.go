@@ -18,8 +18,17 @@ func PutHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 
+	if r.Method != http.MethodPost {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
 	if err != nil {
 		http.Error(w, "invalid json", http.StatusBadRequest)
 		return
 	}
+
+	StoreInstance.Put(req.Key, req.Value)
+
+	json.NewEncoder(w).Encode(map[string]string{"status": "stored"})
 }

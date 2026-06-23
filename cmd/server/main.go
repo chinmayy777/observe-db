@@ -15,6 +15,7 @@ func main() {
 
 	api.StoreInstance = storage.NewStore()
 
+	http.HandleFunc("/put", api.PutHandler)
 	http.HandleFunc("/health", healthHandler)
 
 	fmt.Println("Server starting on :8080")
