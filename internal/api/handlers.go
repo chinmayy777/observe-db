@@ -14,14 +14,15 @@ type PutRequest struct {
 }
 
 func PutHandler(w http.ResponseWriter, r *http.Request) {
-	var req PutRequest
-
-	err := json.NewDecoder(r.Body).Decode(&req)
 
 	if r.Method != http.MethodPost {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
+
+	var req PutRequest
+
+	err := json.NewDecoder(r.Body).Decode(&req)
 
 	if err != nil {
 		http.Error(w, "invalid json", http.StatusBadRequest)
@@ -31,4 +32,8 @@ func PutHandler(w http.ResponseWriter, r *http.Request) {
 	StoreInstance.Put(req.Key, req.Value)
 
 	json.NewEncoder(w).Encode(map[string]string{"status": "stored"})
+}
+
+func GetHandler(w http.ResponseWriter, r *http.Request) {
+
 }
