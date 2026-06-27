@@ -18,6 +18,7 @@ func main() {
 	http.HandleFunc("/put", api.PutHandler)
 	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/get", api.GetHandler)
+	http.HandleFunc("/delete", api.DeleteHandler)
 
 	fmt.Println("Server starting on :8080")
 
