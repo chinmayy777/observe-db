@@ -77,7 +77,66 @@ func TestValidPut(t *testing.T) {
 }
 
 func TestBadJSON(t *testing.T) {
-	StoreInstance := storage.NewStore()
+	StoreInstance = storage.NewStore()
 
-	
+	body := strings.NewReader(`not json`)
+
+	req := httptest.NewRequest(http.MethodPost, "/put", body)
+
+	req.Header.Set("Content-Type", "application/json")
+
+	rr := httptest.NewRecorder()
+
+	PutHandler(rr, req)
+
+	_, ok := StoreInstance.Get("name")
+
+	if rr.Code != http.StatusBadRequest {
+		t.Fatalf("expected 400, got %d", rr.Code)
+	}
+
+	if ok {
+		t.Fatal("expected key not to be stored")
+	}
+}
+
+func TestMissingKey(t *testing.T) {
+	StoreInstance = storage.NewStore()
+
+	req := httptest.NewRequest(http.MethodGet, "/get?key=", nil)
+
+	rr := httptest.NewRecorder()
+
+	GetHandler(rr, req)
+
+	if rr.Code != http.StatusBadRequest {
+		t.Errorf("expected 400, got %d", rr.Code)
+	}
+}
+
+func TestDelete(t *testing.T) {
+	StoreInstance = storage.NewStore()
+
+	StoreInstance.Put("name", "chinmay")
+
+	req := httptest.NewRequest(http.MethodDelete, "/delete?key=name", nil)
+
+	rr := httptest.NewRecorder()
+
+	DeleteHandler(rr, req)
+
+	_, ok := StoreInstance.Get("name")
+
+	if rr.Code != http.StatusOK {
+		t.Errorf("expecteed 200, got %d", rr.Code)
+	}
+
+	if ok {
+		t.Fatal("expected key to be deleted")
+	}
+}
+
+func TestWrongMethod(t *testing.T) {
+	StoreInstance = storage.NewStore()
+
 }
